@@ -20,17 +20,16 @@ public class Main {
         clientStart(8000, "127.0.0.1", 8001, code);
     }
 
-    static void clientStart(int port, String sHost, int sPort, byte code) {
-        Bootstrap connector = new Bootstrap().group(new NioEventLoopGroup(10))
-                .channel(NioSocketChannel.class).handler(new ChannelHandlerAdapter() {
-                    @Override
-                    public boolean isSharable() {
-                        return true;
-                    }
-                });
+    static final Bootstrap connector = new Bootstrap().group(new NioEventLoopGroup(10))
+            .channel(NioSocketChannel.class).handler(new ChannelHandlerAdapter() {
+                @Override
+                public boolean isSharable() {
+                    return true;
+                }
+            });
 
-        NioEventLoopGroup boss = new NioEventLoopGroup(1), worker = new NioEventLoopGroup(20);
-        new ServerBootstrap().group(boss, worker).channel(NioServerSocketChannel.class)
+    static void clientStart(int port, String sHost, int sPort, byte code) {
+        new ServerBootstrap().group(new NioEventLoopGroup(20)).channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) {
@@ -41,16 +40,7 @@ public class Main {
     }
 
     static void serverStart(int port, byte code) {
-        Bootstrap connector = new Bootstrap().group(new NioEventLoopGroup(10))
-                .channel(NioSocketChannel.class).handler(new ChannelHandlerAdapter() {
-                    @Override
-                    public boolean isSharable() {
-                        return true;
-                    }
-                });
-
-        NioEventLoopGroup boss = new NioEventLoopGroup(1), worker = new NioEventLoopGroup(20);
-        new ServerBootstrap().group(boss, worker).channel(NioServerSocketChannel.class)
+        new ServerBootstrap().group(new NioEventLoopGroup(20)).channel(NioServerSocketChannel.class)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) {
