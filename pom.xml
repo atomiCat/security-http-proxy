@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>org.jd</groupId>
     <version>1.0</version>
-    <artifactId>http-proxy-netty</artifactId>
+    <artifactId>security-http-proxy</artifactId>
 	<modelVersion>4.0.0</modelVersion>
 	
     <dependencies>
