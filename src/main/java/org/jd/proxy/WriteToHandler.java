@@ -49,7 +49,12 @@ public class WriteToHandler extends ChannelInboundHandlerAdapter {
             if (future.isSuccess()) {
                 this.setOut(future.channel());//客户端数据发往服务器
             } else {
-                throw new RuntimeException(future.cause());
+//                throw new RuntimeException(future.cause());
+                log.warn("连接失败 {}:{}  {}", host, defaultPort, future.cause().getMessage());
+                ctx.close().addListener(f -> {
+                    while (!buffer.isEmpty())
+                        buffer.poll().release();
+                });
             }
         });
         return this;
@@ -95,5 +100,13 @@ public class WriteToHandler extends ChannelInboundHandlerAdapter {
         if (msg.readableBytes() > 0)
             buffer.offer(msg);
         else log.warn("可读取数量为0");
+    }
+
+    ChannelHandlerContext ctx;
+
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        this.ctx = ctx;
+        super.channelRegistered(ctx);
     }
 }
