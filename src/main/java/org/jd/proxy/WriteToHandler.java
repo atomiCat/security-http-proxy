@@ -5,7 +5,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -75,7 +74,7 @@ public class WriteToHandler extends ChannelInboundHandlerAdapter {
 
     private void writeTo(Queue<ByteBuf> data, Channel out) {
         while (!data.isEmpty()) {
-            Assert.isTrue(data.peek().readableBytes() > 0, "可读取数量为0");
+//            Assert.isTrue(data.peek().readableBytes() > 0, "可读取数量为0");
             out.write(data.poll());
         }
     }

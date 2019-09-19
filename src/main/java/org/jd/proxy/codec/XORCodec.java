@@ -8,8 +8,8 @@ import io.netty.buffer.ByteBuf;
 public class XORCodec extends ByteBufCodec {
     private final byte code;
 
-    public XORCodec(byte code) {
-        this.code = code;
+    public XORCodec(String password) {
+        this.code = Byte.parseByte(password);
     }
 
     @Override

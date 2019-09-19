@@ -33,13 +33,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.shell/spring-shell -->
-        <dependency>
-            <groupId>org.springframework.shell</groupId>
-            <artifactId>spring-shell</artifactId>
-            <version>1.2.0.RELEASE</version>
-        </dependency>
-
     </dependencies>
     <build>
         <finalName>proxy</finalName>
